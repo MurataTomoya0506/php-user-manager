@@ -7,21 +7,11 @@
  $auther->login_chk();
 
 $user_id = isset($_POST['user_id']) ?$_POST['user_id'] : '';
-$user_name = isset($_POST['user_name']) ?$_POST['user_name'] : '';
-$mail_adress = isset($_POST['mail_adress']) ?$_POST['mail_adress'] : '';
-$pass_word = isset($_POST['pass_word']) ?$_POST['pass_word'] : '';
 
 $errors = [];
 try{
-   //メールアドレスが重複していた場合
-   if(!$Users->isDiplication($mail_adress,$user_id)) {
-    //エラーで終了
-    throw new Exception("メールアドレスが重複してます。");
-   }
-   //メールアドレスが重複していなかった場合
-   else{
-    $Users->updateUser($user_id,$user_name,$mail_adress,$pass_word);
-    }
+ $Users->deleteUser($user_id);
+
 }catch(\Exception $e){  
   $errors[] = $e->getMessage();
 }

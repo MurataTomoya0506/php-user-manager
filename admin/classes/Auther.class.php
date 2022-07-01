@@ -29,7 +29,7 @@ class Auther {
 
   public function login($mail_address, $pass_word)
   {
-    if($mail_address === "info@sample.com" && $pass_word === "abcde") {
+    if($mail_address === "info@murasann.com" && $pass_word === "abcde") {
       return true;
     } else {
       return false;

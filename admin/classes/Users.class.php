@@ -100,7 +100,7 @@ class Users extends DBMySQLi{
     }
     public function deleteUser($user_id)
     {
-        $query ="UPDATE FROM users WHERE user_name = ? LIMIT 1";
+        $query ="DELETE FROM users WHERE user_name = ? LIMIT 1";
         $stmt =mysqli_prepare($this->db_link, $query);
         mysqli_stmt_bind_param($stmt,'d',$user_id);
         mysqli_stmt_execute($stmt);

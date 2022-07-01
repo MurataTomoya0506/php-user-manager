@@ -1,13 +1,19 @@
 <?php
-    require_once __DIR__ . "/classes/Auther.class.php";
-    require_once __DIR__ . "/classes/Users.class.php";
+  require_once __DIR__ . "/classes/Auther.class.php";
+  require_once __DIR__ . "/classes/Users.class.php";
 
-    $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : "";
+  $user_id = isset($_GET['user_id']) ?$_GET['user_id'] : '';
+  $user_name = isset($_GET['user_name']) ?$_GET['user_name'] : '';
+  $pass_word = isset($_GET['pass_word']) ?$_GET['pass_word'] : '';
+  $mail_adress = isset($_GET['mail_adress']) ?$_GET['mail_adress'] : '';
+  $create_dt = isset($_GET['create_dt']) ?$_GET['create_dt'] : '';
+  $update_dt = isset($_GET['update_dt']) ?$_GET['update_dt'] : '';
+  
 
-    $auther = new Auther();
-    $users = new Users();
-    $user = $users ->getDetail($user_id);
-
+  $auther = new Auther();
+  $Users = new Users();
+  $user = $Users->getDetail($user_id);
+  $auther->login_chk();
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,50 +25,38 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>ユーザー詳細情報 |管理画面</title>
+    <title>ユーザ詳細情報　| 管理画面</title>
   </head>
-
-<body>
-    <h1>ユーザー詳細情報</h1>
-    <dl>
-   <dt>ユーザーID</dt>
-   <dd><?php echo $user['user_id']; ?></dd>
-   </dl>
-
-    <dl>
-   <dt>ユーザー名</dt>
-   <dd><?php echo $user['user_name']; ?></dd>
-   </dl>
-
-   <dl>
-   <dt>メールアドレス</dt>
-   <dd><?php echo $user['mail_address']; ?></dd>
-   </dl>
-   
-   <dl>
-   <dt>パスワード</dt>
-   <dd><?php echo str_repeat("*" ,6); ?></dd>
-   </dl>
-   
-   <dl>
-   <dt>作成日時</dt>
-   <td><?php echo date("y/m/d H時i分", $user['create_dt']); ?></td>
-   </dl>
-
-   <dl>
-   <dt>更新日時</dt>
-   <td><?php echo date("y/m/d H時i分", $user['update_dt']); ?></td>
-   </dl>
-
-   <form method="POST" action="update.php">
-        <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
-        <button type="submit" class="btn btn-info">編集画面へ</button>
-   </form>
-   <form method="POST" action="delete_check .php">
-        <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
-        <button type="submit" class="btn btn-danger">削除</button>
-   </form>
-
+  <body>
+    <h1>ユーザ管理画面</h1>
+    <table class="table table-striped">
+        <thead>
+            <th>ユーザID</th>
+            <th>ユーザ名</th>
+            <th>パスワード</th>
+            <th>メールアドレス</th>
+            <th>作成日時</th>
+            <th>更新日時</th>
+        </thead>
+        <tbody>
+                <tr>
+                    <td><?php echo $user[ 'user_id' ]; ?></td>
+                    <td><?php echo $user[ 'user_name' ]; ?></td>
+                    <td><?php echo str_repeat("・" ,6 )?></td>
+                    <td><?php echo $user[ 'mail_adress' ]; ?></td>
+                    <td><?php echo date("Y/m/d H時i分" , $user[ 'create_dt' ]); ?></td>
+                    <td><?php echo date("Y/m/d H時i分" , $user[ 'update_dt' ]); ?></td>
+                </tr>  
+        </tbody>
+        <form method="POST" action= "update.php">
+            <input type="hidden" name="user_id" value="<?php echo $user[ 'user_id' ]; ?>">
+            <button type="submit" class="btn btn-info">編集画面へ</button>
+        </form>
+        <form method="POST" action= "delete_check .php">
+            <input type="hidden" name="user_id" value="<?php echo $user[ 'user_id' ]; ?>">
+            <button type="submit" class="btn btn-danger">削除</button>
+        </form>
+    </table>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
